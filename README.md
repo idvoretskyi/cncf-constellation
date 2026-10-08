@@ -4,7 +4,7 @@
 > [CNCF Landscape](https://landscape.cncf.io). Brightness is GitHub stars.
 > The flicker is commit activity. There is snow, because it is a holiday project.
 
-**Live:** https://idvoretskyi.github.io/cncf-constellation/
+**Live:** https://ihor.io/cncf-constellation/
 
 ## What it is
 
