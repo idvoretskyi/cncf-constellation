@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CNCF Constellation — the cloud native sky, rendered from GitHub</title>
+  <meta name="description" content="An artificial night sky where every star is a CNCF landscape project, sized by GitHub stars and pulsing with commit activity." />
+  <meta property="og:title" content="CNCF Constellation" />
+  <meta property="og:description" content="Every star is a CNCF landscape project. Brightness = GitHub stars. Pulse = commit activity." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
+  <link rel="preload" href="data/landscape.json" as="fetch" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="nebula" aria-hidden="true"></div>
+  <canvas id="sky" aria-label="Galaxy of CNCF landscape projects"></canvas>
+  <canvas id="snow" aria-hidden="true"></canvas>
+
+  <header id="top">
+    <div class="brand">
+      <span class="glyph">✦</span>
+      <div>
+        <h1>CNCF Constellation</h1>
+        <p class="tag">Every star is a landscape project. Brightness is GitHub stars. The pulse is commits.</p>
+      </div>
+    </div>
+    <dl class="totals" id="totals">
+      <div><dt>Projects</dt><dd data-k="projects">—</dd></div>
+      <div><dt>GitHub stars</dt><dd data-k="stars">—</dd></div>
+      <div><dt>Contributors</dt><dd data-k="contributors">—</dd></div>
+      <div><dt>Commits / 52w</dt><dd data-k="commits">—</dd></div>
+    </dl>
+  </header>
+
+  <nav id="controls" aria-label="Sky controls">
+    <label class="search">
+      <span class="sr-only">Search projects</span>
+      <input id="q" type="search" placeholder="Search the sky  ( / )" autocomplete="off" />
+    </label>
+    <div class="chips" id="maturity" role="group" aria-label="Maturity filter">
+      <button data-m="graduated" class="on"><i style="--c:var(--graduated)"></i>Graduated</button>
+      <button data-m="incubating" class="on"><i style="--c:var(--incubating)"></i>Incubating</button>
+      <button data-m="sandbox" class="on"><i style="--c:var(--sandbox)"></i>Sandbox</button>
+      <button data-m="archived" class="on"><i style="--c:var(--archived)"></i>Archived</button>
+      <button data-m="other" class="on"><i style="--c:var(--other)"></i>Everyone else</button>
+    </div>
+    <label>Colour <select id="color">
+      <option value="maturity">by maturity</option>
+      <option value="language">by language</option>
+      <option value="activity">by activity</option>
+      <option value="age">by age</option>
+    </select></label>
+    <label>Size <select id="size">
+      <option value="stars">by stars</option>
+      <option value="contributors">by contributors</option>
+      <option value="year">by commits / 52w</option>
+    </select></label>
+    <label class="toggle"><input id="lines" type="checkbox" checked /> constellations</label>
+    <label class="toggle"><input id="snowy" type="checkbox" checked /> snow</label>
+    <label class="toggle"><input id="spin" type="checkbox" checked /> spin</label>
+    <button id="reset" title="Reset view">⌂</button>
+  </nav>
+
+  <div id="tip" role="tooltip" hidden></div>
+
+  <aside id="panel" hidden aria-live="polite">
+    <button class="close" id="close" aria-label="Close">×</button>
+    <div class="head">
+      <img id="p-logo" alt="" />
+      <div>
+        <h2 id="p-name"></h2>
+        <p id="p-cat"></p>
+      </div>
+    </div>
+    <p id="p-desc"></p>
+    <p id="p-badges" class="badges"></p>
+    <dl class="facts" id="p-facts"></dl>
+    <h3>52 weeks of commits</h3>
+    <canvas id="spark" width="360" height="72"></canvas>
+    <h3>Languages</h3>
+    <div id="p-langs" class="langs"></div>
+    <p class="links" id="p-links"></p>
+  </aside>
+
+  <div id="hint">drag to pan · scroll to zoom · click a star</div>
+
+  <main id="observatory">
+    <section class="intro">
+      <h2>The Observatory</h2>
+      <p>
+        Numbers below come from the <a href="https://landscape.cncf.io" rel="noopener">CNCF Landscape</a>
+        dataset, which the CNCF refreshes from GitHub daily. This site refreshes nightly.
+        <span id="generated"></span>
+      </p>
+      <div class="star-of-day" id="sod"></div>
+    </section>
+
+    <section class="boards" id="boards"></section>
+
+    <section class="charts">
+      <div class="chart"><h3>Primary languages</h3><div id="langchart" class="bars"></div></div>
+      <div class="chart"><h3>Maturity</h3><div id="matchart" class="bars"></div></div>
+      <div class="chart"><h3>Stars by category</h3><div id="catchart" class="bars"></div></div>
+    </section>
+
+    <footer>
+      <p>
+        Built as a holiday project by <a href="https://github.com/idvoretskyi" rel="noopener">@idvoretskyi</a>.
+        Source on <a href="https://github.com/idvoretskyi/cncf-constellation" rel="noopener">GitHub</a>.
+        Data © CNCF landscape contributors; not affiliated with the CNCF.
+      </p>
+    </footer>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
